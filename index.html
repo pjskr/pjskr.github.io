@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pj.skr — Custom Android ROM</title>
+    <meta name="description"
+        content="pj.skr is a performance-first custom Android ROM built for speed, privacy, and a beautiful user experience." />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.18/dist/lenis.css" />
+
+    <!-- Anime.js -->
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- Cherry Blossom Canvas -->
+    <canvas id="sakura-canvas"></canvas>
+
+    <!-- ========== HEADER ========== -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="#" class="logo" id="logo" data-goto="about">
+                <span class="logo-icon">🌸</span>
+                <span class="logo-text">pj<span class="logo-dot">.</span>skr</span>
+            </a>
+
+            <nav class="tab-nav" id="tab-nav" role="tablist">
+                <button class="tab-btn active" data-tab="about" role="tab" aria-selected="true">About ROM</button>
+                <button class="tab-btn" data-tab="devices" role="tab" aria-selected="false">Device Support</button>
+                <button class="tab-btn" data-tab="download" role="tab" aria-selected="false">Download</button>
+                <button class="tab-btn" data-tab="wiki" role="tab" aria-selected="false">Wiki</button>
+                <button class="tab-btn" data-tab="changelogs" role="tab" aria-selected="false">Changelogs</button>
+            </nav>
+
+            <div class="header-actions">
+                <a href="https://github.com/pjskr" target="_blank" rel="noopener" class="gh-link" aria-label="GitHub">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+                    </svg>
+                </a>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
+                    <span class="theme-icon sun">☀️</span>
+                    <span class="theme-icon moon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="hero">
+        <div class="hero-bg-glow"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="hero-line line-1">Experience</span>
+                <span class="hero-line line-2">pj<span class="accent">.</span>skr</span>
+            </h1>
+            <p class="hero-sub">A performance-first custom Android ROM built for speed, privacy, and a beautiful
+                experience.</p>
+            <div class="hero-actions">
+                <button class="btn btn-primary" data-goto="download">Get pj.skr</button>
+                <a href="https://github.com/pjskr" target="_blank" rel="noopener" class="btn btn-ghost">View on
+                    GitHub</a>
+            </div>
+            <div class="hero-stats" id="hero-stats">
+                <div class="stat">
+                    <span class="stat-num" id="stat-devices" data-count="0">—</span>
+                    <span class="stat-label">Devices</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num" id="stat-repos" data-count="0">—</span>
+                    <span class="stat-label">Repos</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num" id="stat-stars" data-count="0">—</span>
+                    <span class="stat-label">Stars</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TAB PANELS ========== -->
+    <main class="main-content">
+
+        <!-- ABOUT TAB -->
+        <section class="tab-panel active" id="panel-about" role="tabpanel">
+            <div class="container">
+                <h2 class="section-title">About <span class="accent">pj.skr</span></h2>
+                <p class="section-desc">pj.skr is a community-driven Android custom ROM that focuses on delivering a
+                    clean, bloat-free experience with top-tier performance and thoughtful customization.</p>
+
+                <div class="features-grid">
+                    <div class="feature-card" data-anim="card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Blazing Fast</h3>
+                        <p>Optimised kernel, aggressive memory management, and buttery-smooth 120 fps animations.</p>
+                    </div>
+                    <div class="feature-card" data-anim="card">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Privacy First</h3>
+                        <p>No telemetry, no bloatware. Your data stays on <em>your</em> device.</p>
+                    </div>
+                    <div class="feature-card" data-anim="card">
+                        <div class="feature-icon">🎨</div>
+                        <h3>Customizable</h3>
+                        <p>Monet theming, status-bar tweaks, lock-screen styles, and more — all built in.</p>
+                    </div>
+                    <div class="feature-card" data-anim="card">
+                        <div class="feature-icon">🔋</div>
+                        <h3>Battery Saver</h3>
+                        <p>Smart doze profiles and per-app battery control extend your screen-on time.</p>
+                    </div>
+                    <div class="feature-card" data-anim="card">
+                        <div class="feature-icon">🛡️</div>
+                        <h3>Security Patches</h3>
+                        <p>Monthly Android security patches rolled out the same week Google publishes them.</p>
+                    </div>
+                    <div class="feature-card" data-anim="card">
+                        <div class="feature-icon">🌸</div>
+                        <h3>Beautiful UI</h3>
+                        <p>A refined, sakura-inspired aesthetic with fluid micro-animations everywhere.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DEVICES TAB -->
+        <section class="tab-panel" id="panel-devices" role="tabpanel">
+            <div class="container">
+                <h2 class="section-title">Device <span class="accent">Support</span></h2>
+                <p class="section-desc">Devices are fetched live from the <a href="https://github.com/pjskr-Devices"
+                        target="_blank" rel="noopener" class="inline-link">pjskr-Devices</a> GitHub organisation. Each
+                    repo = one supported device.</p>
+
+                <!-- Dynamic device grid — populated by JS -->
+                <div class="device-grid" id="device-grid">
+                    <div class="loading-state" id="devices-loading">
+                        <div class="spinner"></div>
+                        <p>Fetching devices from GitHub&hellip;</p>
+                    </div>
+                </div>
+
+                <!-- Empty state (hidden by default) -->
+                <div class="empty-state hidden" id="devices-empty">
+                    <div class="empty-icon">📱</div>
+                    <h3>No devices yet</h3>
+                    <p>The <a href="https://github.com/pjskr-Devices" target="_blank" rel="noopener"
+                            class="inline-link">pjskr-Devices</a> organisation doesn't have any public repos yet. Check
+                        back soon!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- DOWNLOAD TAB -->
+        <section class="tab-panel" id="panel-download" role="tabpanel">
+            <div class="container">
+                <h2 class="section-title"><span class="accent">Download</span> pj.skr</h2>
+                <p class="section-desc">Grab the latest build for your device. All downloads are hosted on GitHub
+                    Releases.</p>
+
+                <div class="download-hero-card" data-anim="card">
+                    <div class="dl-version">
+                        <span class="dl-tag">Latest</span>
+                        <h3>pj.skr v4.1 — Sakura</h3>
+                        <p>Based on Android 15 QPR2 &bull; March 2026 security patch</p>
+                    </div>
+                    <div class="dl-actions">
+                        <a href="https://github.com/pjskr/releases" target="_blank" rel="noopener"
+                            class="btn btn-primary">Browse Releases</a>
+                    </div>
+                </div>
+
+                <div class="download-steps">
+                    <h3 class="steps-title">Installation Guide</h3>
+                    <ol class="steps-list">
+                        <li data-anim="step">
+                            <div class="step-num">1</div>
+                            <div class="step-body">
+                                <strong>Unlock Bootloader</strong>
+                                <p>Enable OEM unlocking in Developer Options, then run
+                                    <code>fastboot flashing unlock</code>.
+                                </p>
+                            </div>
+                        </li>
+                        <li data-anim="step">
+                            <div class="step-num">2</div>
+                            <div class="step-body">
+                                <strong>Flash Custom Recovery</strong>
+                                <p>Download the recommended recovery for your device and flash via
+                                    <code>fastboot flash recovery recovery.img</code>.
+                                </p>
+                            </div>
+                        </li>
+                        <li data-anim="step">
+                            <div class="step-num">3</div>
+                            <div class="step-body">
+                                <strong>Sideload pj.skr</strong>
+                                <p>Boot into recovery, choose "Apply update → ADB sideload", then run
+                                    <code>adb sideload pjskr-*.zip</code>.
+                                </p>
+                            </div>
+                        </li>
+                        <li data-anim="step">
+                            <div class="step-num">4</div>
+                            <div class="step-body">
+                                <strong>Reboot &amp; Enjoy</strong>
+                                <p>First boot may take a few minutes. Customise your setup and enjoy pj.skr!</p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- WIKI TAB -->
+        <section class="tab-panel" id="panel-wiki" role="tabpanel">
+            <div class="container">
+                <h2 class="section-title"><span class="accent">Wiki</span></h2>
+                <p class="section-desc">Everything you need to know about building, flashing, and customising pj.skr.
+                </p>
+
+                <div class="wiki-grid">
+                    <!-- Getting Started -->
+                    <article class="wiki-card" data-anim="card">
+                        <div class="wiki-card-icon">🚀</div>
+                        <h3>Getting Started</h3>
+                        <div class="wiki-body">
+                            <p>New to custom ROMs? Start here.</p>
+                            <ul>
+                                <li><strong>Prerequisites</strong> — Unlocked bootloader, USB debugging enabled, ADB
+                                    &amp; Fastboot installed on your PC.</li>
+                                <li><strong>Backup</strong> — Always make a full TWRP / OrangeFox backup before
+                                    flashing.</li>
+                                <li><strong>Download</strong> — Grab the latest pj.skr ZIP for your device from the
+                                    <em>Download</em> tab or GitHub Releases.
+                                </li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <!-- Building from Source -->
+                    <article class="wiki-card" data-anim="card">
+                        <div class="wiki-card-icon">🛠️</div>
+                        <h3>Building from Source</h3>
+                        <div class="wiki-body">
+                            <ol>
+                                <li>Install dependencies: <code>sudo apt install bc bison build-essential …</code></li>
+                                <li>Init repo: <code>repo init -u https://github.com/pjskr/manifest -b sakura</code>
+                                </li>
+                                <li>Sync: <code>repo sync -c -j$(nproc) --force-sync --no-clone-bundle</code></li>
+                                <li>Set up env: <code>source build/envsetup.sh</code></li>
+                                <li>Choose target: <code>lunch pjskr_&lt;codename&gt;-userdebug</code></li>
+                                <li>Build: <code>mka bacon -j$(nproc)</code></li>
+                            </ol>
+                        </div>
+                    </article>
+
+                    <!-- Customisation -->
+                    <article class="wiki-card" data-anim="card">
+                        <div class="wiki-card-icon">🎨</div>
+                        <h3>Customisation</h3>
+                        <div class="wiki-body">
+                            <ul>
+                                <li><strong>Monet Theming</strong> — Go to <em>Settings → pj.skr Lab → Monet</em> to
+                                    change accent colours based on your wallpaper.</li>
+                                <li><strong>Status Bar</strong> — Clock position, battery style, icon toggles.</li>
+                                <li><strong>Lock Screen</strong> — Custom clocks, media art, shortcut buttons.</li>
+                                <li><strong>Quick Settings</strong> — Tile layout, rows &amp; columns, transparency.
+                                </li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <!-- FAQ -->
+                    <article class="wiki-card" data-anim="card">
+                        <div class="wiki-card-icon">❓</div>
+                        <h3>FAQ</h3>
+                        <div class="wiki-body">
+                            <dl class="faq-list">
+                                <dt>Will I lose my data?</dt>
+                                <dd>A clean flash wipes data. Dirty flash (same Android base) usually keeps data — but
+                                    always backup.</dd>
+                                <dt>Does SafetyNet / Play Integrity pass?</dt>
+                                <dd>Yes, out of the box with our bundled attestation fix.</dd>
+                                <dt>How do I get OTA updates?</dt>
+                                <dd>Go to <em>Settings → System → pj.skr Updater</em>. Updates are pushed as soon as new
+                                    builds are ready.</dd>
+                                <dt>Where can I report bugs?</dt>
+                                <dd>Open an issue in the device-specific repo inside <a
+                                        href="https://github.com/pjskr-Devices" target="_blank" rel="noopener"
+                                        class="inline-link">pjskr-Devices</a>.</dd>
+                            </dl>
+                        </div>
+                    </article>
+
+                    <!-- Kernel -->
+                    <article class="wiki-card" data-anim="card">
+                        <div class="wiki-card-icon">⚙️</div>
+                        <h3>Kernel Info</h3>
+                        <div class="wiki-body">
+                            <ul>
+                                <li><strong>Base</strong> — Latest CAF / GKI kernel for each SoC.</li>
+                                <li><strong>Scheduler</strong> — BORE scheduler for lower latency.</li>
+                                <li><strong>I/O</strong> — BFQ I/O scheduler, F2FS optimisations.</li>
+                                <li><strong>Governors</strong> — Schedutil by default, walt optional.</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <!-- Contributing -->
+                    <article class="wiki-card" data-anim="card">
+                        <div class="wiki-card-icon">🤝</div>
+                        <h3>Contributing</h3>
+                        <div class="wiki-body">
+                            <p>We welcome contributions! Here's how:</p>
+                            <ol>
+                                <li>Fork the repo on <a href="https://github.com/pjskr" target="_blank" rel="noopener"
+                                        class="inline-link">GitHub</a>.</li>
+                                <li>Create a feature branch: <code>git checkout -b feat/my-feature</code></li>
+                                <li>Commit with clear messages and open a PR.</li>
+                                <li>Make sure your code follows our coding style and passes CI.</li>
+                            </ol>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHANGELOGS TAB -->
+        <section class="tab-panel" id="panel-changelogs" role="tabpanel">
+            <div class="container">
+                <h2 class="section-title">Change<span class="accent">logs</span></h2>
+                <p class="section-desc">A history of every pj.skr release. Newest first.</p>
+
+                <div class="changelog-timeline">
+
+                    <article class="changelog-entry" data-anim="card">
+                        <div class="cl-marker"></div>
+                        <div class="cl-content">
+                            <div class="cl-header">
+                                <span class="cl-version">v4.1</span>
+                                <span class="cl-codename">Sakura</span>
+                                <time class="cl-date">March 1, 2026</time>
+                            </div>
+                            <ul class="cl-list">
+                                <li><span class="cl-tag cl-new">New</span> Redesigned Quick Settings with glassmorphism
+                                    style</li>
+                                <li><span class="cl-tag cl-new">New</span> Per-app volume control in Sound settings</li>
+                                <li><span class="cl-tag cl-improve">Improved</span> 15 % faster app launch via optimised
+                                    dex2oat</li>
+                                <li><span class="cl-tag cl-improve">Improved</span> Monet engine now supports 3rd-party
+                                    icon packs</li>
+                                <li><span class="cl-tag cl-fix">Fix</span> Wi-Fi toggle delay on Pixel devices</li>
+                                <li><span class="cl-tag cl-fix">Fix</span> Occasional SystemUI crash on lock screen</li>
+                                <li><span class="cl-tag cl-security">Security</span> March 2026 ASB patch merged</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="changelog-entry" data-anim="card">
+                        <div class="cl-marker"></div>
+                        <div class="cl-content">
+                            <div class="cl-header">
+                                <span class="cl-version">v4.0</span>
+                                <span class="cl-codename">Hanami</span>
+                                <time class="cl-date">February 1, 2026</time>
+                            </div>
+                            <ul class="cl-list">
+                                <li><span class="cl-tag cl-new">New</span> Rebased on Android 15 QPR1</li>
+                                <li><span class="cl-tag cl-new">New</span> pj.skr Updater with seamless A/B OTA</li>
+                                <li><span class="cl-tag cl-new">New</span> Edge lighting for notifications</li>
+                                <li><span class="cl-tag cl-improve">Improved</span> Battery life gains of up to 20 %
+                                    (BORE scheduler)</li>
+                                <li><span class="cl-tag cl-improve">Improved</span> Smoother 120 Hz rendering pipeline
+                                </li>
+                                <li><span class="cl-tag cl-fix">Fix</span> Bluetooth codec selection not persisting</li>
+                                <li><span class="cl-tag cl-security">Security</span> February 2026 ASB patch merged</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="changelog-entry" data-anim="card">
+                        <div class="cl-marker"></div>
+                        <div class="cl-content">
+                            <div class="cl-header">
+                                <span class="cl-version">v3.2</span>
+                                <span class="cl-codename">Tsubaki</span>
+                                <time class="cl-date">December 15, 2025</time>
+                            </div>
+                            <ul class="cl-list">
+                                <li><span class="cl-tag cl-new">New</span> Custom lock screen clocks (6 styles)</li>
+                                <li><span class="cl-tag cl-new">New</span> Game Mode with performance profiles</li>
+                                <li><span class="cl-tag cl-improve">Improved</span> Camera HAL tweaks for faster shutter
+                                </li>
+                                <li><span class="cl-tag cl-fix">Fix</span> Screen flickering on AMOLED panels at low
+                                    brightness</li>
+                                <li><span class="cl-tag cl-security">Security</span> December 2025 ASB patch merged</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <article class="changelog-entry" data-anim="card">
+                        <div class="cl-marker"></div>
+                        <div class="cl-content">
+                            <div class="cl-header">
+                                <span class="cl-version">v3.1</span>
+                                <span class="cl-codename">Ume</span>
+                                <time class="cl-date">October 20, 2025</time>
+                            </div>
+                            <ul class="cl-list">
+                                <li><span class="cl-tag cl-new">New</span> Initial public release of pj.skr</li>
+                                <li><span class="cl-tag cl-new">New</span> Based on Android 14 QPR3</li>
+                                <li><span class="cl-tag cl-new">New</span> Monet theming engine</li>
+                                <li><span class="cl-tag cl-new">New</span> Status Bar customisation</li>
+                                <li><span class="cl-tag cl-new">New</span> pj.skr Lab settings hub</li>
+                                <li><span class="cl-tag cl-security">Security</span> October 2025 ASB patch merged</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p class="footer-logo">🌸 pj<span class="accent">.</span>skr</p>
+            <p class="footer-copy">&copy; 2026 pj.skr contributors &bull; Open-source under Apache-2.0</p>
+            <div class="footer-links">
+                <a href="https://github.com/pjskr" target="_blank" rel="noopener">GitHub</a>
+                <a href="#" class="footer-tab-link" data-goto="wiki">Wiki</a>
+                <a href="#" class="footer-tab-link" data-goto="changelogs">Changelog</a>
+                <a href="https://github.com/pjskr-Devices" target="_blank" rel="noopener">Devices Org</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
