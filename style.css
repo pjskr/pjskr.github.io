@@ -971,6 +971,51 @@ img {
   color: #7c3aed;
 }
 
+/* ---------- CREDITS ---------- */
+.credits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.credit-card {
+  background: var(--bg-card);
+  border: 1px solid var(--bg-card-border);
+  border-radius: var(--radius-md);
+  padding: 28px 24px;
+  transition: transform var(--speed-fast) var(--ease-out), box-shadow var(--speed-fast);
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.credit-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+}
+
+.credit-icon {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.credit-card h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.credit-card p {
+  font-size: .88rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.credit-card-more {
+  border-color: var(--accent);
+  border-style: dashed;
+  background: linear-gradient(135deg, var(--accent-glow), transparent);
+}
+
 /* ---------- FOOTER ---------- */
 .site-footer {
   border-top: 1px solid var(--bg-card-border);
@@ -1054,6 +1099,10 @@ img {
   }
 
   .wiki-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .credits-grid {
     grid-template-columns: 1fr;
   }
 
